@@ -1,0 +1,25 @@
+{
+  "name": "newborn-photographer-backend",
+  "version": "1.0.0",
+  "description": "app newborn photographer for Alena Lobacheva",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pechenjka/newborn-photographer-backend.git"
+  },
+  "author": "Petr Lobachev lobachevpetr@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pechenjka/newborn-photographer-backend/issues"
+  },
+  "homepage": "https://github.com/Pechenjka/newborn-photographer-backend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

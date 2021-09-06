@@ -8,6 +8,7 @@ const { PORT, MONGO_URL } = require('./config');
 
 const app = express();
 const router = require('./routes/index');
+const errorHandler = require('./middlewares/errorHandler');
 
 mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
@@ -19,6 +20,7 @@ app.use(cors());
 app.use(express.json({ extended: true }));
 app.use(bodyParser.json());
 app.use('/', router);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);

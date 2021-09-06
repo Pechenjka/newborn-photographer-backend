@@ -9,6 +9,7 @@ const app = express();
 const router = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./middlewares/errorHandler');
+const limiter = require('./middlewares/rateLimit');
 
 mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
@@ -20,6 +21,7 @@ app.use(cors());
 app.use(express.json({ extended: true }));
 app.use(bodyParser.json());
 app.use(requestLogger);
+app.use(limiter);
 app.use('/', router);
 app.use(errorLogger);
 app.use(errorHandler);

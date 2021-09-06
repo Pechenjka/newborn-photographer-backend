@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const helmet = require('helmet');
 const { PORT, MONGO_URL } = require('./config');
 
 const app = express();
@@ -17,6 +18,8 @@ mongoose.connect(MONGO_URL, {
   useFindAndModify: false,
   useUnifiedTopology: true,
 });
+
+app.use(helmet());
 app.use(cors());
 app.use(express.json({ extended: true }));
 app.use(bodyParser.json());

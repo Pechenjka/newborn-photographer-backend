@@ -1,6 +1,5 @@
 const nodemailer = require('nodemailer');
 
-
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   port: 587,
@@ -12,7 +11,7 @@ const transporter = nodemailer.createTransport({
   tls: { rejectUnauthorized: false },
 });
 
-//Подписка пользователя на рассылку
+// Подписка пользователя на рассылку
 const sendMailNewsLetter = (email) => transporter.sendMail({
   from: email,
   to: 'lobachev32@mail.ru',
@@ -20,7 +19,7 @@ const sendMailNewsLetter = (email) => transporter.sendMail({
   text: `Хочу подписаться на рассылку: ${email}`,
 });
 
-//Сообщение от посетителя сайта
+// Сообщение от посетителя сайта
 const sendMailGetInTouch = (name, email, tel, text) => transporter.sendMail({
   from: email,
   to: 'lobachev32@mail.ru',
@@ -28,7 +27,7 @@ const sendMailGetInTouch = (name, email, tel, text) => transporter.sendMail({
   text: `${text}`,
 });
 
-//Сообщение о заказе
+// Сообщение о заказе
 const sendDataOrderUser = (name, email, tel, text, type, price, title, location) => transporter.sendMail({
   from: email,
   to: 'lobachev32@mail.ru',
@@ -36,11 +35,10 @@ const sendDataOrderUser = (name, email, tel, text, type, price, title, location)
   text: `Тип: ${type}, пакет: ${title}, стоимость: ${price}, кол-во образов ${location}. Мои контактные данные: tel: ${tel}, email: ${email}, сообщение: ${text}`,
 });
 
-
 const getNewsLetter = (req, res) => {
   const { email } = req.body;
   sendMailNewsLetter(email)
-    .then((data) => res.send(data))
+    .then((data) => res.status(200).send(data))
     .catch((err) => console.log(err));
 };
 
@@ -49,7 +47,7 @@ const getInTouch = (req, res) => {
     name, email, tel, text,
   } = req.body;
   sendMailGetInTouch(name, email, tel, text)
-    .then((data) => res.send(data))
+    .then((data) => res.status(200).send(data))
     .catch((err) => console.log(err));
 };
 
@@ -58,7 +56,7 @@ const getOrder = (req, res) => {
     name, email, tel, text, type, price, title, location,
   } = req.body;
   sendDataOrderUser(name, email, tel, text, type, price, title, location)
-    .then((data) => res.send(data))
+    .then((data) => res.status(200).send(data))
     .catch((err) => console.log(err));
 };
 

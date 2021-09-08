@@ -6,12 +6,12 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { PORT, MONGO_URL } = require('./config');
 
-const app = express();
 const router = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./middlewares/errorHandler');
 const limiter = require('./middlewares/rateLimit');
 
+const app = express();
 mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
   useCreateIndex: true,

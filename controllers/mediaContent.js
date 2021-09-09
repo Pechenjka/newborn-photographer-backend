@@ -37,7 +37,7 @@ const getArrPhotosFromCloud = (req, res, next) => {
     .then((data) => res.status(200).send(data))
     .catch((err) => {
       if (err.code === 404) {
-        throw new NotFound(NOT_FOUND_MESSAGE);
+        throw new NotFound(NOT_FOUND_MESSAGE.NOT_FOUND_BACKET);
       }
       next(err);
     })

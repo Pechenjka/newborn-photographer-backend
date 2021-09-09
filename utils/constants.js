@@ -1,6 +1,9 @@
 const UNAUTHORIZED_MESSAGE = 'Необходимо обновить авторизацию или заново авторизоваться';
 const DEFAULT_ERROR_SERVER_MESSAGE = 'На сервере произошла ошибка';
-const NOT_FOUND_MESSAGE = 'Бакет не найден';
+const NOT_FOUND_MESSAGE = {
+  NOT_FOUND_BACKET: 'Бакет не найден',
+  RESOURSE_ERROR: 'Запрошенный ресурс не найден',
+} ;
 const BAD_REQUEST_MESSAGE = 'Некорректный запрос';
 
 const FILE_NAME_REQUEST_LOGGER = 'logs/request.log';

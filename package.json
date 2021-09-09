@@ -28,8 +28,6 @@
     "express-rate-limit": "^5.3.0",
     "express-winston": "^4.2.0",
     "helmet": "^4.6.0",
-    "mongoose": "^5.12.12",
-    "mz": "^2.7.0",
     "node-fetch": "^2.6.1",
     "nodemailer": "^6.6.2",
     "winston": "^3.3.3"

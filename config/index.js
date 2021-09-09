@@ -1,6 +1,5 @@
 const {
   PORT = 3005,
-  MONGO_URL = 'mongodb://localhost:27017/newbornPhotographerdb',
   TOKEN_INSTAGRAM_PROFILE,
   PATH_TO_FILE,
   PROJECT_ID,
@@ -8,5 +7,5 @@ const {
 } = process.env;
 
 module.exports = {
-  PORT, MONGO_URL, TOKEN_INSTAGRAM_PROFILE, PATH_TO_FILE, PROJECT_ID, BUCKET_NAME,
+  PORT, TOKEN_INSTAGRAM_PROFILE, PATH_TO_FILE, PROJECT_ID, BUCKET_NAME,
 };

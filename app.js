@@ -1,10 +1,9 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
-const { PORT, MONGO_URL } = require('./config');
+const { PORT } = require('./config');
 
 const router = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -12,12 +11,6 @@ const errorHandler = require('./middlewares/errorHandler');
 const limiter = require('./middlewares/rateLimit');
 
 const app = express();
-mongoose.connect(MONGO_URL, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true,
-});
 
 app.use(helmet());
 app.use(cors());

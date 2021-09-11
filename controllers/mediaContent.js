@@ -1,11 +1,8 @@
 const fetch = require('node-fetch');
 const path = require('path');
 const { Storage } = require('@google-cloud/storage');
-const NotFound = require('../errors/NotFound');
-const BadRequest = require('../errors/BadRequest');
-const { BAD_REQUEST_MESSAGE } = require('../utils/constants');
-const { UNAUTHORIZED_MESSAGE } = require('../utils/constants');
-const { Unauthorized } = require('../errors/index');
+const { UNAUTHORIZED_MESSAGE, BAD_REQUEST_MESSAGE } = require('../utils/constants');
+const { Unauthorized, NotFound, BadRequest } = require('../errors/index');
 const {
   TOKEN_INSTAGRAM_PROFILE, PATH_TO_FILE, PROJECT_ID, BUCKET_NAME, NOT_FOUND_MESSAGE,
 } = require('../config');
@@ -59,7 +56,7 @@ const getInstagramProfile = (req, res, next) => fetch(basUrlInstagramProfile, {
   .then((data) => res.status(200).send(data))
   .catch((err) => {
     if (err.message === '400') {
-      throw new BadRequest(BAD_REQUEST_MESSAGE);
+      throw new BadRequest(BAD_REQUEST_MESSAGE.INCORRECT_REQUEST);
     }
     if (err.message === '401') {
       throw new Unauthorized(UNAUTHORIZED_MESSAGE);

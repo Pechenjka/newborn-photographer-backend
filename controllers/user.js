@@ -1,21 +1,24 @@
 const nodemailer = require('nodemailer');
+const { BadRequest } = require('../errors/index');
+const { BAD_REQUEST_MESSAGE } = require('../utils/constants');
+const { EMAIL_ACCOUNT, PASSWORD_EMAIL_ACCOUNT } = require('../config');
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
   port: 587,
+  ignoreTLS: false,
   secure: false,
   auth: {
-    user: 'info.newborn.lobacheva@gmail.com',
-    pass: 'newborn1987',
+    user: EMAIL_ACCOUNT,
+    pass: PASSWORD_EMAIL_ACCOUNT,
   },
-  tls: { rejectUnauthorized: false },
 });
 
 // Подписка пользователя на рассылку
 const sendMailNewsLetter = (email) => transporter.sendMail({
   from: email,
   to: 'lobachev32@mail.ru',
-  subject: 'Подписаться на рассылку акций и будущих проектов',
+  subject: 'Посетитель сайта желает подписаться на рассылку акций и будущих проектов',
   text: `Хочу подписаться на рассылку: ${email}`,
 });
 
@@ -35,29 +38,53 @@ const sendDataOrderUser = (name, email, tel, text, type, price, title, location)
   text: `Тип: ${type}, пакет: ${title}, стоимость: ${price}, кол-во образов ${location}. Мои контактные данные: tel: ${tel}, email: ${email}, сообщение: ${text}`,
 });
 
-const getNewsLetter = (req, res) => {
+const getNewsLetter = (req, res, next) => {
   const { email } = req.body;
   sendMailNewsLetter(email)
-    .then((data) => res.status(200).send(data))
-    .catch((err) => console.log(err));
+    .then((data) => {
+      if (data.envelope.from === '') {
+        throw new BadRequest(BAD_REQUEST_MESSAGE.EMPTY_FIELD);
+      }
+      if (!data.response.includes('OK')) {
+        throw new BadRequest(BAD_REQUEST_MESSAGE.INCORRECT_REQUEST);
+      }
+      return res.status(200).send(data);
+    })
+    .catch(next);
 };
 
-const getInTouch = (req, res) => {
+const getInTouch = (req, res, next) => {
   const {
     name, email, tel, text,
   } = req.body;
   sendMailGetInTouch(name, email, tel, text)
-    .then((data) => res.status(200).send(data))
-    .catch((err) => console.log(err));
+    .then((data) => {
+      if (data.envelope.from === '') {
+        throw new BadRequest(BAD_REQUEST_MESSAGE.EMPTY_FIELD);
+      }
+      if (!data.response.includes('OK')) {
+        throw new BadRequest(BAD_REQUEST_MESSAGE.INCORRECT_REQUEST);
+      }
+      return res.status(200).send(data);
+    })
+    .catch(next);
 };
 
-const getOrder = (req, res) => {
+const getOrder = (req, res, next) => {
   const {
     name, email, tel, text, type, price, title, location,
   } = req.body;
   sendDataOrderUser(name, email, tel, text, type, price, title, location)
-    .then((data) => res.status(200).send(data))
-    .catch((err) => console.log(err));
+    .then((data) => {
+      if (data.envelope.from === '') {
+        throw new BadRequest(BAD_REQUEST_MESSAGE.EMPTY_FIELD);
+      }
+      if (!data.response.includes('OK')) {
+        throw new BadRequest(BAD_REQUEST_MESSAGE.INCORRECT_REQUEST);
+      }
+      return res.status(200).send(data);
+    })
+    .catch(next);
 };
 
 module.exports = { getNewsLetter, getInTouch, getOrder };

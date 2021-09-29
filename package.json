@@ -1,0 +1,41 @@
+{
+  "name": "newborn-photographer-backend",
+  "version": "1.0.0",
+  "description": "app newborn photographer for Alena Lobacheva",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "npx eslint .",
+    "lintFix": "npx eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pechenjka/newborn-photographer-backend.git"
+  },
+  "author": "Petr Lobachev lobachevpetr@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pechenjka/newborn-photographer-backend/issues"
+  },
+  "homepage": "https://github.com/Pechenjka/newborn-photographer-backend#readme",
+  "dependencies": {
+    "@google-cloud/storage": "^5.14.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.3.0",
+    "express-winston": "^4.2.0",
+    "helmet": "^4.6.0",
+    "node-fetch": "^2.6.1",
+    "nodemailer": "^6.6.2",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.27.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "nodemon": "^2.0.7"
+  }
+}

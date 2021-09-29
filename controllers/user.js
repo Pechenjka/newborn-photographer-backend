@@ -26,7 +26,7 @@ const sendMailNewsLetter = (email) => transporter.sendMail({
 const sendMailGetInTouch = (name, email, tel, text) => transporter.sendMail({
   from: email,
   to: 'lobachev32@mail.ru',
-  subject: `Сообщение от посетителя сайта name: ${name}, tel: ${tel}, email: ${email}`,
+  subject: `Сообщение от посетителя сайта name: ${name}, ${tel === undefined ? 'tel: поле не заполнено' : `tel: ${tel}`}, email: ${email}`,
   text: `${text}`,
 });
 
@@ -35,7 +35,7 @@ const sendDataOrderUser = (name, email, tel, text, type, price, title, location)
   from: email,
   to: 'lobachev32@mail.ru',
   subject: `Хочу заказать фотосессию: Меня зовут: ${name}`,
-  text: `Тип: ${type}, пакет: ${title}, стоимость: ${price}, кол-во образов ${location}. Мои контактные данные: tel: ${tel}, email: ${email}, сообщение: ${text}`,
+  text: `Тип: ${type}, пакет: ${title}, стоимость: ${price}, образы: ${location}. Данные клиента: tel: ${tel}, email: ${email}, ${text === undefined ? 'сообщение: отсутствует' : `сообщение:${text}`}`,
 });
 
 const getNewsLetter = (req, res, next) => {

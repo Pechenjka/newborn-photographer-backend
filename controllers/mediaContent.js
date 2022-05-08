@@ -1,10 +1,10 @@
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
 const path = require('path');
 const { Storage } = require('@google-cloud/storage');
-const { UNAUTHORIZED_MESSAGE, BAD_REQUEST_MESSAGE } = require('../utils/constants');
-const { Unauthorized, NotFound, BadRequest } = require('../errors/index');
+
+const { NotFound } = require('../errors/index');
 const {
-  TOKEN_INSTAGRAM_PROFILE, PATH_TO_FILE, PROJECT_ID, BUCKET_NAME, NOT_FOUND_MESSAGE,
+  PATH_TO_FILE, PROJECT_ID, BUCKET_NAME, NOT_FOUND_MESSAGE,
 } = require('../config');
 
 // Получение фотографий из сетевого хранилища
@@ -41,28 +41,4 @@ const getArrPhotosFromCloud = (req, res, next) => {
     .catch(next);
 };
 
-const checkResponse = (res) => (res.ok ? res.json() : Promise.reject(new Error(res.status)));
-
-// Получение медиаконтента профиля instagram
-const basUrlInstagramProfile = `https://graph.instagram.com/me/media?fields=id,media_type,media_url,caption,timestamp,thumbnail_url,username,permalink&access_token=${TOKEN_INSTAGRAM_PROFILE}`;
-
-const getInstagramProfile = (req, res, next) => fetch(basUrlInstagramProfile, {
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-})
-  .then(checkResponse)
-  .then((data) => res.status(200).send(data))
-  .catch((err) => {
-    if (err.message === '400') {
-      throw new BadRequest(BAD_REQUEST_MESSAGE.INCORRECT_REQUEST);
-    }
-    if (err.message === '401') {
-      throw new Unauthorized(UNAUTHORIZED_MESSAGE);
-    }
-    next(err);
-  })
-  .catch(next);
-
-module.exports = { getInstagramProfile, getArrPhotosFromCloud };
+module.exports = { getArrPhotosFromCloud };

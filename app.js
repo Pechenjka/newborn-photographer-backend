@@ -3,7 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
-const { PORT } = require('./config');
+const mongoose = require('mongoose');
+const { PORT, MONGO_URL } = require('./config');
 
 const router = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -11,6 +12,12 @@ const errorHandler = require('./middlewares/errorHandler');
 const limiter = require('./middlewares/rateLimit');
 
 const app = express();
+mongoose.connect(MONGO_URL, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true,
+});
 
 app.use(helmet());
 app.use(cors());

@@ -14,13 +14,11 @@ const limiter = require('./middlewares/rateLimit');
 const app = express();
 mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
   useUnifiedTopology: true,
 });
 
 app.use(helmet());
-app.use(cors());
+app.options('*', cors());
 app.use(express.json({ extended: true }));
 app.use(bodyParser.json());
 app.use(requestLogger);

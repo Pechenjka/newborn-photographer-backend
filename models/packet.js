@@ -1,52 +1,50 @@
 const mongoose = require('mongoose');
-const { PACKET_SCHEMA_VALIDATION_MESSAGE } = require('../utils/constants');
 
 const packetSchema = new mongoose.Schema({
   title: {
     type: String,
     minLength: 2,
-    required: [true, PACKET_SCHEMA_VALIDATION_MESSAGE.TITLE],
+    required: true,
   },
   price: {
     type: Number,
-    required: [true, PACKET_SCHEMA_VALIDATION_MESSAGE.PRICE],
+    required: true,
   },
   packet: {
     type: String,
-    required: [true, PACKET_SCHEMA_VALIDATION_MESSAGE.PACKET],
-  },
-  id: {
-    type: Number,
-    required: [true, PACKET_SCHEMA_VALIDATION_MESSAGE.PACKETID],
+    required: true,
   },
   description: {
     type: String,
-    required: [true, PACKET_SCHEMA_VALIDATION_MESSAGE.DESCRIPTION],
+    required: true,
   },
   shortDescription: {
     type: String,
-    required: [true, PACKET_SCHEMA_VALIDATION_MESSAGE.SHORTDESCRIPTION],
+    required: true,
   },
   pinned: {
     type: Boolean,
   },
   duration: {
     type: String,
-    required: [true, PACKET_SCHEMA_VALIDATION_MESSAGE.DURATION],
+    required: true,
   },
   image: {
     type: String,
-    required: [true, PACKET_SCHEMA_VALIDATION_MESSAGE.IMAGE],
+    required: true,
   },
   imageDescription: {
     type: String,
-    required: [true, PACKET_SCHEMA_VALIDATION_MESSAGE.IMAGEDESCRIPTION],
+    required: true,
   },
   numberLocations: {
     type: Number,
-    required: [true, PACKET_SCHEMA_VALIDATION_MESSAGE.NUMBERLOCATION],
+    required: true,
   },
-
+  getFromPhotosession: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('packet', packetSchema);

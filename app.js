@@ -17,8 +17,8 @@ mongoose.connect(MONGO_URL, {
   useUnifiedTopology: true,
 });
 
+app.use(cors());
 app.use(helmet());
-app.options('*', cors());
 app.use(express.json({ extended: true }));
 app.use(bodyParser.json());
 app.use(requestLogger);

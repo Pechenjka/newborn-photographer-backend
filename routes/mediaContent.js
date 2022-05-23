@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const { getArrPhotosFromCloud } = require('../controllers/mediaContent');
+const { getArrPhotos, createPhoto } = require('../controllers/mediaContent');
 
-router.get('/gallery', getArrPhotosFromCloud);
+router.get('/gallery', getArrPhotos);
+router.post('/gallery', createPhoto);
 
 module.exports = router;

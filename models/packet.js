@@ -37,6 +37,10 @@ const packetSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  imageDescriptionMobile: {
+    type: String,
+    required: true,
+  },
   countLocations: {
     type: String,
     required: true,

@@ -30,12 +30,46 @@ const sendMailGetInTouch = (name, email, tel, text) => transporter.sendMail({
   text: `${text}`,
 });
 
-// Сообщение о заказе
-const sendDataOrderUser = (name, email, tel, text, type, price, title, location) => transporter.sendMail({
-  from: email,
+const output = (name, email, tel, text, packets) => (
+  `<div>
+      <h3>Детали заказа</h3>
+      <ul>
+        <li>Name: ${name}</li>
+        <li>Email: ${email}</li>
+        <li>Phone: ${tel}</li>
+      </ul>
+      <h3>Сообщение</h3>
+      <p>${text}</p>
+      <table style="font-size: 12px">
+        <thead>
+          <tr style="background-color: grey; color: white">
+            <th style="padding: 5px 10px">Пакет</th>
+            <th style="padding: 5px 10px">Название</th>
+            <th style="padding: 5px 10px">Категория</th>
+            <th style="padding: 5px 10px">Цена</th>
+          </tr>
+        </thead>
+        <tbody>
+         ${packets.map((packet) => (
+    `<tr>
+                <th>
+                  <img style="width: 100px" src=${packet.image}  alt="image from paket" />
+                </th>
+                <th>${packet.title}</th>
+                <th>${packet.packet}</th>
+                <th>${packet.price}</th>
+              </tr>`
+  ))}
+        </tbody>
+      </table>
+    </div>
+  `);
+
+const sendDataOrderUser = (name, email, tel, text, packets) => transporter.sendMail({
+  from: `"Nodemailer Contact" ${EMAIL_ACCOUNT}`,
   to: 'lobachev32@mail.ru',
-  subject: `Хочу заказать фотосессию: Меня зовут: ${name}`,
-  text: `Тип: ${type}, пакет: ${title}, стоимость: ${price}, образы: ${location}. Данные клиента: tel: ${tel}, email: ${email}, ${text === undefined ? 'сообщение: отсутствует' : `сообщение:${text}`}`,
+  subject: 'Получен новый запрос на фотосессию',
+  html: output(name, email, tel, text, packets),
 });
 
 const getNewsLetter = (req, res, next) => {
@@ -72,9 +106,9 @@ const getInTouch = (req, res, next) => {
 
 const getOrder = (req, res, next) => {
   const {
-    name, email, tel, text, type, price, title, location,
+    name, email, tel, text, packets,
   } = req.body;
-  sendDataOrderUser(name, email, tel, text, type, price, title, location)
+  sendDataOrderUser(name, email, tel, text, packets)
     .then((data) => {
       if (data.envelope.from === '') {
         throw new BadRequest(BAD_REQUEST_MESSAGE.EMPTY_FIELD);
